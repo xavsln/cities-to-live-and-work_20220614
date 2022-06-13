@@ -8,4 +8,4 @@ This simple JavaScript App will make use of the Teleport Public API to fetch dat
 
 
 # API used
-- Teleport Public API ([Link to documentation here](https://developers.teleport.org/api/getting_started/))
+- <a href="https://developers.teleport.org/api/getting_started/" target="_blank">Teleport Public API</a>
