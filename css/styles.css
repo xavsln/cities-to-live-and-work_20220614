@@ -3,7 +3,9 @@
 }
 
 body{
-  background-color: lightgrey;
+  /* background-color: lightgrey; */
+  background-image: url("../img/background_shapelined.jpg");
+  /* https://unsplash.com/photos/_JBKdviweXI?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink */
 }
 
 .card {
