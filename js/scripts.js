@@ -81,7 +81,7 @@ function addListItem(city){
 
   // Create a button and add it to the DOM
 
-  let buttonCity = $('<button type="button" class="btn btn-light card"><img src="'+ city.cityImageMobile +'" class="card-img-top" alt="..."><div class="card-body"><h5 class="card-title">'+ city.cityName +'</h5></div></button>');
+  let buttonCity = $('<button type="button" class="btn btn-light card" data-toggle="modal" data-target="#ModalCenter"><img src="'+ city.cityImageMobile +'" class="card-img-top" alt="..."><div class="card-body"><h5 class="card-title">'+ city.cityName +'</h5></div></button>');
   // let buttonCity = $('<button>Test</button>');
 
   listItem.append(buttonCity);
