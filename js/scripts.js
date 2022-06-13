@@ -74,6 +74,24 @@ function add(city){
   cityList.push(city);
 }
 
+function addListItem(city){
+  let listCity = $('.row-city-list');
+
+  let listItem = $('<div class="col-sm-6 col-md-4 col-lg-3" align="center"></div>');
+
+  // Create a button and add it to the DOM
+
+  let buttonCity = $('<button type="button" class="btn btn-light card"><img src="'+ city.cityImageMobile +'" class="card-img-top" alt="..."><div class="card-body"><h5 class="card-title">'+ city.cityName +'</h5></div></button>');
+  // let buttonCity = $('<button>Test</button>');
+
+  listItem.append(buttonCity);
+  listCity.append(listItem);
+
+}
+
+
+
+
 // We load the initial list of data (ie. the level 1)
 loadListLevel1();
 
@@ -96,3 +114,10 @@ setTimeout(function(){        // To prevent this we would need to create impleme
     loadListLevel3Images(item);
   });
 }, 2500);
+
+setTimeout(function(){        // To prevent this we would need to create implement AJAX or set a timer
+  cityList.forEach((item, i) => {
+    // console.log(item);
+    addListItem(item);
+  });
+}, 4500);
