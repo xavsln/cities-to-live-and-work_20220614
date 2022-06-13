@@ -61,13 +61,26 @@ function loadListLevel3Images(item){
   return fetch(cityImgUrl).then(function(response){
     return response.json();
   }).then(function(detailsImages){
-    console.log(detailsImages["photos"][0]["image"]["mobile"]);
+    // console.log(detailsImages["photos"][0]["image"]["mobile"]);
     item.cityImageMobile = detailsImages["photos"][0]["image"]["mobile"];
-    console.log(detailsImages["photos"][0]["image"]["web"]);
+    // console.log(detailsImages["photos"][0]["image"]["web"]);
     item.cityImageWeb = detailsImages["photos"][0]["image"]["web"];
   })
-
 }
+
+// We define a function that will load the details LEVEL 3 - To extract the Score Summary for each city
+function loadListLevel3ScoresSummary(item){
+  let cityScoresSummaryUrl = item.cityScoresUrl;
+  console.log(cityScoresSummaryUrl);
+
+  return fetch(cityScoresSummaryUrl).then(function(response){
+    return response.json();
+  }).then(function(detailsScores){
+    // console.log(detailsScores.summary);
+    item.cityScoresSummary = detailsScores.summary;
+  })
+}
+
 
 // We create a function that add each city Object fetch from the API to the cityList Array
 function add(city){
@@ -114,6 +127,13 @@ setTimeout(function(){        // To prevent this we would need to create impleme
     loadListLevel3Images(item);
   });
 }, 2500);
+
+setTimeout(function(){        // To prevent this we would need to create implement AJAX or set a timer
+  cityList.forEach((item, i) => {
+    // console.log(item);
+    loadListLevel3ScoresSummary(item);
+  });
+}, 3000);
 
 setTimeout(function(){        // To prevent this we would need to create implement AJAX or set a timer
   cityList.forEach((item, i) => {
