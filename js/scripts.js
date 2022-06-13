@@ -100,7 +100,36 @@ function addListItem(city){
   listItem.append(buttonCity);
   listCity.append(listItem);
 
+  // Add an event listener to our button element
+  buttonCity.on('click', function(){
+  showModal(city);
+})
+
 }
+
+function showModal(city){
+
+  let modalBody = $('.modal-body');
+  let modalTitle = $('.modal-title');
+  let modalFooter = $('.modal-header');
+
+  modalTitle.empty();
+  modalBody.empty();
+
+  let nameElement = $('<h1>' + city.cityName + '</h1>');
+  let imageElement = $('<img class="modal-img mx-auto d-block" style="width:100%">');
+  imageElement.attr('src', city.cityImageWeb);
+  let summaryElement = $('<div class="modal-scores-summary">' + city.cityScoresSummary + '</div>');
+
+
+  modalTitle.append(nameElement);
+  modalBody.append(imageElement);
+  modalBody.append(summaryElement);
+
+
+}
+
+
 
 
 
@@ -133,7 +162,7 @@ setTimeout(function(){        // To prevent this we would need to create impleme
     // console.log(item);
     loadListLevel3ScoresSummary(item);
   });
-}, 3000);
+}, 4000);
 
 setTimeout(function(){        // To prevent this we would need to create implement AJAX or set a timer
   cityList.forEach((item, i) => {
