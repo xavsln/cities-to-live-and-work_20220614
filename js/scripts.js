@@ -90,11 +90,11 @@ function add(city){
 function addListItem(city){
   let listCity = $('.row-city-list');
 
-  let listItem = $('<div class="col-sm-6 col-md-4 col-lg-3" align="center"></div>');
+  let listItem = $('<div class="col-sm-6 col-md-4 col-lg-3 listItem" align="center"></div>');
 
   // Create a button and add it to the DOM
 
-  let buttonCity = $('<button type="button" class="btn btn-light card" data-toggle="modal" data-target="#ModalCenter"><img src="'+ city.cityImageMobile +'" class="card-img-top" alt="..."><div class="card-body"><h5 class="card-title">'+ city.cityName +'</h5></div></button>');
+  let buttonCity = $('<button type="button" class="btn btn-light card mt-2" data-toggle="modal" data-target="#ModalCenter"><img src="'+ city.cityImageMobile +'" class="card-img-top" alt="..."><div class="card-body"><h5 class="card-title">'+ city.cityName +'</h5></div></button>');
   // let buttonCity = $('<button>Test</button>');
 
   listItem.append(buttonCity);
@@ -126,15 +126,39 @@ function showModal(city){
   modalBody.append(imageElement);
   modalBody.append(summaryElement);
 
+}
 
+// Search functionality
+$(document).ready(function(){
+  $("#user-search-input").on("keyup", function(event) {
+    // var value = $(this).val().toLowerCase();
+    // $("#myTable tr").filter(function() {
+    //   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    // });
+    let inputValue = $("#user-search-input").val();
+    // filterList();
+    console.log(inputValue);
+    filterList(inputValue);
+  });
+});
+
+function filterList(inputValue) {
+  // let inputValue = $("#user-search-input").val();
+  let list = $(".listItem");
+  console.log(list);
+  list.each(function() {
+    let item = $(this);
+    let name = item.text().toLowerCase();
+    if (name.startsWith(inputValue)) {
+      item.show();
+    } else {
+      item.hide();
+    }
+  });
 }
 
 
-
-
-
-
-// We load the initial list of data (ie. the level 1)
+// // We load the initial list of data (ie. the level 1)
 loadListLevel1();
 
 console.log(cityList[49]);    // This will return undefined as the data is not fully fetch from the API
@@ -170,3 +194,24 @@ setTimeout(function(){        // To prevent this we would need to create impleme
     addListItem(item);
   });
 }, 4500);
+
+
+
+// Load data from API using Promises !!! DOES NOT WORK !!!
+//
+// loadListLevel1()
+// .then(function(result){
+//   cityList.forEach((item, i) => {
+//     loadListLevel2(item)
+//     return cityList;
+//     })
+//   })
+//   .then(function(result){
+//     console.log("Another log");
+//     console.log(cityList);
+//     cityList.forEach(function(city){
+//       console.log(city);
+//       loadListLevel3Images(city);
+//       return cityList;
+//     })
+//   })

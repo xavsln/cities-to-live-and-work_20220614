@@ -1,5 +1,9 @@
-* {
+/* * {
   border: 1px solid blue;
+} */
+
+html {
+  height: 100%;
 }
 
 body{
@@ -44,15 +48,17 @@ body{
 
 .footer {
 	/* position: fixed; */
+  /* position: absolute; */
 	text-align: center;
 	bottom: 0;
 	width: 100%;
-	height: 60px;
+	/* height: 60px; */
 	background-color: #8b8b8b;
 }
 
 .footer p {
-	margin-top: 20px;
+	/* margin-top: 20px; */
 	font-size: 12px;
+  padding: 1rem;
   color: #fff;
 }
