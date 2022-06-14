@@ -121,6 +121,9 @@ function showModal(city){
   imageElement.attr('src', city.cityImageWeb);
   let summaryElement = $('<div class="modal-scores-summary">' + city.cityScoresSummary + '</div>');
 
+  let buttonLinkElement = $('#link-to-city-in-teleport');
+  buttonLinkElement.attr('href', city.teleportCityUrl);
+
 
   modalTitle.append(nameElement);
   modalBody.append(imageElement);
@@ -130,20 +133,13 @@ function showModal(city){
 
 // Search functionality
 $(document).ready(function(){
-  $("#user-search-input").on("keyup", function(event) {
-    // var value = $(this).val().toLowerCase();
-    // $("#myTable tr").filter(function() {
-    //   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    // });
+  $("#user-search-input").on("keyup", function() {
     let inputValue = $("#user-search-input").val();
-    // filterList();
-    console.log(inputValue);
     filterList(inputValue);
   });
 });
 
 function filterList(inputValue) {
-  // let inputValue = $("#user-search-input").val();
   let list = $(".listItem");
   console.log(list);
   list.each(function() {
