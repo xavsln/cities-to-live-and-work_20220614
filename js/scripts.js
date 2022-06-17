@@ -47,6 +47,9 @@ function loadListLevel2(item) {
       item.cityImagesUrl = details["_links"]["ua:images"]["href"]; // Use the bracket notation to access data otherwise there is an issue with the colon in the key
       console.log(details["_links"]["ua:scores"]["href"]);
       item.cityScoresUrl = details["_links"]["ua:scores"]["href"]; // Use the bracket notation to access data otherwise there is an issue with the colon in the key
+    })
+    .catch(function(e) {
+      console.log(e);
     });
 }
 
@@ -165,22 +168,21 @@ function filterList(inputValue) {
 }
 
 // // We load the initial list of data (ie. the level 1)
-loadListLevel1();
+// loadListLevel1();
 
-console.log(cityList[49]); // This will return undefined as the data is not fully fetch from the API
-setTimeout(function() {
-  // To prevent this we would need to create implement AJAX or set a timer
-  console.log(cityList[49]);
-}, 1200);
-
-setTimeout(function() {
-  // To prevent this we would need to create implement AJAX or set a timer
-  cityList.forEach((item, i) => {
-    // console.log(item);
-    loadListLevel2(item);
+// We load the initial list of data (ie. the level 1)
+// Then for each city item of the list we load the Level 2 of data
+loadListLevel1()
+  .then(function() {
+    cityList.forEach((item, i) => {
+      loadListLevel2(item);
+    });
+    return cityList;
+  })
+  .then(function(cityDataLevel2) {
+    let detailsLevel2 = cityDataLevel2;
+    console.log("Available city data available at Level 2: ", detailsLevel2);
   });
-  // console.log(loadListLevel2())
-}, 1500);
 
 setTimeout(function() {
   // To prevent this we would need to create implement AJAX or set a timer
@@ -205,22 +207,3 @@ setTimeout(function() {
     addListItem(item);
   });
 }, 4500);
-
-// Load data from API using Promises !!! DOES NOT WORK !!!
-//
-// loadListLevel1()
-// .then(function(result){
-//   cityList.forEach((item, i) => {
-//     loadListLevel2(item)
-//     return cityList;
-//     })
-//   })
-//   .then(function(result){
-//     console.log("Another log");
-//     console.log(cityList);
-//     cityList.forEach(function(city){
-//       console.log(city);
-//       loadListLevel3Images(city);
-//       return cityList;
-//     })
-//   })
