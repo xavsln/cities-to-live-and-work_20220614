@@ -1,6 +1,8 @@
 // Wrap the cityList inside an IIFE
 
 let cityRepository = (function() {
+  // We define/declare loadingMessage variable that will be used in showLoadingMessage() and hideLoadingMessage()
+  let loadingMessage = document.querySelector(".loading-message-placeholder");
   // We define the cityList that will gather the data for each city collected from the API
   let cityList = [];
   // We define the endpoint to collect the first level of data for each city
@@ -28,6 +30,7 @@ let cityRepository = (function() {
           };
           add(city);
         });
+        // hideLoadingMessage();
       })
       .catch(function(e) {
         console.error(e);
@@ -35,6 +38,7 @@ let cityRepository = (function() {
   }
 
   function getAll() {
+    showLoadingMessage();
     return cityList;
   }
 
@@ -165,6 +169,15 @@ let cityRepository = (function() {
     });
   }
 
+  function showLoadingMessage() {
+    loadingMessage.innerText = "LOADING... Please wait...";
+    // console.log(loadingMessage);
+  }
+
+  function hideLoadingMessage() {
+    loadingMessage.innerText = "";
+  }
+
   // cityRepository function will return either getAll, add etc... and then trigger the appropriate function
   return {
     // getAll: getAll, // if cityRepository.getAll() is selected then this will trigger the getAll(city) function
@@ -175,9 +188,9 @@ let cityRepository = (function() {
     loadListLevel3Images: loadListLevel3Images,
     loadListLevel3ScoresSummary: loadListLevel3ScoresSummary,
     filterList: filterList,
-    addListItem: addListItem
+    addListItem: addListItem,
     // showLoadingMessage: showLoadingMessage,
-    // hideLoadingMessage: hideLoadingMessage
+    hideLoadingMessage: hideLoadingMessage
   };
 })(); // End of IIFE
 
@@ -192,6 +205,7 @@ cityRepository.loadListLevel1().then(function() {
     // console.log(item);
     cityRepository.loadListLevel2(item);
   });
+
   return cityRepository.getAll();
 });
 // .then(function(listOfCities) {
@@ -222,6 +236,7 @@ setTimeout(function() {
   // We create a timer to give time to fetch all data
   cityRepository.getAll().forEach((item, i) => {
     // console.log(item);
+    cityRepository.hideLoadingMessage();
     cityRepository.addListItem(item);
   });
 }, 4500);
