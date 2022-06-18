@@ -87,6 +87,10 @@ body {
   padding: 20px;
 }
 
+li > a {
+  color: white;
+}
+
 h3 {
   border-bottom: 1px solid grey;
 }
