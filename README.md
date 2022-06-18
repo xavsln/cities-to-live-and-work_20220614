@@ -1,11 +1,18 @@
-# About
-This simple JavaScript App will make use of the Teleport Public API to fetch data in relation to the quality of life in different cities worldwide.
+# About:
 
+This simple JavaScript App makes use of the Teleport Public API to fetch data in relation to the quality of life in different cities worldwide.
 
-# App dependencies
-- Bootstrap (v5.1.3)
+# Technologies used and App dependencies:
+
+- HTML
+- CSS
+- Bootstrap
 - jQuery
 
+# API used:
 
-# API used
 - Teleport Public API (https://developers.teleport.org/api/getting_started/)
+
+# Link to Website:
+
+- [Link to website](https://xavsln.github.io/cities-to-live-and-work_20220614/)
