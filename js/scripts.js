@@ -1,12 +1,12 @@
 // Wrap the cityList inside an IIFE
 
-let cityRepository = (function() {
+const cityRepository = (function() {
   // We define/declare loadingMessage variable that will be used in showLoadingMessage() and hideLoadingMessage()
   const loadingMessage = $("#loading-message-placeholder");
   // We define the cityList that will gather the data for each city collected from the API
   let cityList = [];
   // We define the endpoint to collect the first level of data for each city
-  let apiDataLevel1Url = "https://api.teleport.org/api/urban_areas/";
+  const apiDataLevel1Url = "https://api.teleport.org/api/urban_areas/";
 
   // We create the function that will fetch the FIRST LEVEL of data from the API
   function loadListLevel1() {
@@ -104,9 +104,9 @@ let cityRepository = (function() {
   }
 
   function addListItem(city) {
-    let listCity = $(".row-city-list");
+    const listCity = $(".row-city-list");
 
-    let listItem = $(
+    const listItem = $(
       '<div class=" col-6 col-md-4 col-lg-3 listItem" align="center"></div>'
     );
 
@@ -131,15 +131,15 @@ let cityRepository = (function() {
   }
 
   function showModal(city) {
-    let modalBody = $(".modal-body");
-    let modalTitle = $(".modal-title");
-    let modalFooter = $(".modal-header");
+    const modalBody = $(".modal-body");
+    const modalTitle = $(".modal-title");
+    const modalFooter = $(".modal-header");
 
     modalTitle.empty();
     modalBody.empty();
 
     let nameElement = $("<h1>" + city.cityName + "</h1>");
-    let imageElement = $(
+    const imageElement = $(
       '<img class="modal-img mx-auto d-block" style="width:100%">'
     );
     imageElement.attr("src", city.cityImageWeb);
@@ -156,7 +156,7 @@ let cityRepository = (function() {
   }
 
   function filterList(inputValue) {
-    let list = $(".listItem");
+    const list = $(".listItem");
     console.log(list);
     list.each(function() {
       let item = $(this);
