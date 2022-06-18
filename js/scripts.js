@@ -107,7 +107,7 @@ let cityRepository = (function() {
     let listCity = $(".row-city-list");
 
     let listItem = $(
-      '<div class="col-sm-6 col-md-4 col-lg-3 listItem" align="center"></div>'
+      '<div class=" col-6 col-md-4 col-lg-3 listItem" align="center"></div>'
     );
 
     // Create a button and add it to the DOM
