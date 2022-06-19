@@ -245,8 +245,20 @@ setTimeout(function() {
 
 // Search functionality
 $(document).ready(function() {
+  search();
+});
+
+function search() {
   $("#user-search-input").on("keyup", function() {
     let inputValue = $("#user-search-input").val();
     cityRepository.filterList(inputValue);
   });
+}
+
+$("#user-search-input").on("keypress", function(event) {
+  if (event.which == "13") {
+    event.preventDefault(); // stop the default behavior of the form submit.
+    search();
+    $("#navbarToggler").removeClass("show");
+  }
 });
