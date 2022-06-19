@@ -2,11 +2,11 @@
 
 const cityRepository = (function() {
   // We define/declare loadingMessage variable that will be used in showLoadingMessage() and hideLoadingMessage()
-  const loadingMessage = $("#loading-message-placeholder");
+  const loadingMessage = $('#loading-message-placeholder');
   // We define the cityList that will gather the data for each city collected from the API
   let cityList = [];
   // We define the endpoint to collect the first level of data for each city
-  const apiDataLevel1Url = "https://api.teleport.org/api/urban_areas/";
+  const apiDataLevel1Url = 'https://api.teleport.org/api/urban_areas/';
 
   // We create the function that will fetch the FIRST LEVEL of data from the API
   function loadListLevel1() {
@@ -17,13 +17,13 @@ const cityRepository = (function() {
       .then(function(json) {
         // console.log(json);
         // console.log(json._links);
-        console.log(json["_links"]["ua:item"]); // Need to use the bracket notation to access ua.item oherwise it would not recognize the colon when using the dot notation
+        console.log(json['_links']['ua:item']); // Need to use the bracket notation to access ua.item oherwise it would not recognize the colon when using the dot notation
 
         // json["_links"]["ua:item"].forEach(function(item){
         //   console.log(item);
         // });
 
-        json["_links"]["ua:item"].forEach(function(item) {
+        json['_links']['ua:item'].forEach(function(item) {
           let city = {
             cityName: item.name,
             cityDetailsUrl: item.href
@@ -52,10 +52,10 @@ const cityRepository = (function() {
       .then(function(details) {
         console.log(details.teleport_city_url);
         item.teleportCityUrl = details.teleport_city_url;
-        console.log(details["_links"]["ua:images"]["href"]);
-        item.cityImagesUrl = details["_links"]["ua:images"]["href"]; // Use the bracket notation to access data otherwise there is an issue with the colon in the key
-        console.log(details["_links"]["ua:scores"]["href"]);
-        item.cityScoresUrl = details["_links"]["ua:scores"]["href"]; // Use the bracket notation to access data otherwise there is an issue with the colon in the key
+        console.log(details['_links']['ua:images']['href']);
+        item.cityImagesUrl = details['_links']['ua:images']['href']; // Use the bracket notation to access data otherwise there is an issue with the colon in the key
+        console.log(details['_links']['ua:scores']['href']);
+        item.cityScoresUrl = details['_links']['ua:scores']['href']; // Use the bracket notation to access data otherwise there is an issue with the colon in the key
       })
       .catch(function(e) {
         console.log(e);
@@ -64,7 +64,7 @@ const cityRepository = (function() {
 
   // We define a function that will load the details LEVEL 3 - To extract the images for each city
   function loadListLevel3Images(item) {
-    console.log("item from the loadListLevel3Images", item);
+    console.log('item from the loadListLevel3Images', item);
     let cityImgUrl = item.cityImagesUrl;
     console.log(cityImgUrl);
 
@@ -77,9 +77,9 @@ const cityRepository = (function() {
       })
       .then(function(detailsImages) {
         // console.log(detailsImages["photos"][0]["image"]["mobile"]);
-        item.cityImageMobile = detailsImages["photos"][0]["image"]["mobile"];
+        item.cityImageMobile = detailsImages['photos'][0]['image']['mobile'];
         // console.log(detailsImages["photos"][0]["image"]["web"]);
-        item.cityImageWeb = detailsImages["photos"][0]["image"]["web"];
+        item.cityImageWeb = detailsImages['photos'][0]['image']['web'];
       });
   }
 
@@ -104,7 +104,7 @@ const cityRepository = (function() {
   }
 
   function addListItem(city) {
-    const listCity = $(".row-city-list");
+    const listCity = $('.row-city-list');
 
     const listItem = $(
       '<div class=" col-6 col-md-4 col-lg-3 listItem" align="center"></div>'
@@ -117,7 +117,7 @@ const cityRepository = (function() {
         city.cityImageMobile +
         '" class="card-img-top" alt="..."><div class="card-body"><h5 class="card-title">' +
         city.cityName +
-        "</h5></div></button>"
+        '</h5></div></button>'
     );
     // let buttonCity = $('<button>Test</button>');
 
@@ -125,30 +125,30 @@ const cityRepository = (function() {
     listCity.append(listItem);
 
     // Add an event listener to our button element
-    buttonCity.on("click", function() {
+    buttonCity.on('click', function() {
       showModal(city);
     });
   }
 
   function showModal(city) {
-    const modalBody = $(".modal-body");
-    const modalTitle = $(".modal-title");
-    const modalFooter = $(".modal-header");
+    const modalBody = $('.modal-body');
+    const modalTitle = $('.modal-title');
+    const modalFooter = $('.modal-header');
 
     modalTitle.empty();
     modalBody.empty();
 
-    let nameElement = $("<h1>" + city.cityName + "</h1>");
+    let nameElement = $('<h1>' + city.cityName + '</h1>');
     const imageElement = $(
       '<img class="modal-img mx-auto d-block" style="width:100%">'
     );
-    imageElement.attr("src", city.cityImageWeb);
+    imageElement.attr('src', city.cityImageWeb);
     let summaryElement = $(
-      '<div class="modal-scores-summary">' + city.cityScoresSummary + "</div>"
+      '<div class="modal-scores-summary">' + city.cityScoresSummary + '</div>'
     );
 
-    let buttonLinkElement = $("#link-to-city-in-teleport");
-    buttonLinkElement.attr("href", city.teleportCityUrl);
+    let buttonLinkElement = $('#link-to-city-in-teleport');
+    buttonLinkElement.attr('href', city.teleportCityUrl);
 
     modalTitle.append(nameElement);
     modalBody.append(imageElement);
@@ -156,7 +156,7 @@ const cityRepository = (function() {
   }
 
   function filterList(inputValue) {
-    const list = $(".listItem");
+    const list = $('.listItem');
     console.log(list);
     list.each(function() {
       let item = $(this);
@@ -170,7 +170,7 @@ const cityRepository = (function() {
   }
 
   function showLoadingMessage() {
-    loadingMessage.text("LOADING... Please wait...");
+    loadingMessage.text('LOADING... Please wait...');
     loadingMessage.prepend(
       '<img id="loading-spinner-icon" src="./img/spinner.gif" />'
     );
@@ -249,16 +249,16 @@ $(document).ready(function() {
 });
 
 function search() {
-  $("#user-search-input").on("keyup", function() {
-    let inputValue = $("#user-search-input").val();
+  $('#user-search-input').on('keyup', function() {
+    let inputValue = $('#user-search-input').val();
     cityRepository.filterList(inputValue);
   });
 }
 
-$("#user-search-input").on("keypress", function(event) {
-  if (event.which == "13") {
+$('#user-search-input').on('keypress', function(event) {
+  if (event.which == '13') {
     event.preventDefault(); // stop the default behavior of the form submit.
     search();
-    $("#navbarToggler").removeClass("show");
+    $('#navbarToggler').removeClass('show');
   }
 });
