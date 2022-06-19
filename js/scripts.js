@@ -17,11 +17,10 @@ const cityRepository = (function() {
       .then(function(json) {
         // console.log(json);
         // console.log(json._links);
-        console.log(json['_links']['ua:item']); // Need to use the bracket notation to access ua.item oherwise it would not recognize the colon when using the dot notation
-
-        // json["_links"]["ua:item"].forEach(function(item){
-        //   console.log(item);
-        // });
+        console.log(
+          'Data fetched from API within from loadListLevel1 function: ',
+          json['_links']['ua:item']
+        ); // Need to use the bracket notation to access ua.item oherwise it would not recognize the colon when using the dot notation
 
         json['_links']['ua:item'].forEach(function(item) {
           let city = {
@@ -38,7 +37,7 @@ const cityRepository = (function() {
   }
 
   function getAll() {
-    showLoadingMessage();
+    // showLoadingMessage();
     return cityList;
   }
 
@@ -50,12 +49,10 @@ const cityRepository = (function() {
         return response.json();
       })
       .then(function(details) {
-        console.log(details.teleport_city_url);
         item.teleportCityUrl = details.teleport_city_url;
-        console.log(details['_links']['ua:images']['href']);
         item.cityImagesUrl = details['_links']['ua:images']['href']; // Use the bracket notation to access data otherwise there is an issue with the colon in the key
-        console.log(details['_links']['ua:scores']['href']);
         item.cityScoresUrl = details['_links']['ua:scores']['href']; // Use the bracket notation to access data otherwise there is an issue with the colon in the key
+        // console.log('Item after loadListLevel2: ', item);
       })
       .catch(function(e) {
         console.log(e);
@@ -64,12 +61,12 @@ const cityRepository = (function() {
 
   // We define a function that will load the details LEVEL 3 - To extract the images for each city
   function loadListLevel3Images(item) {
-    console.log('item from the loadListLevel3Images', item);
+    console.log('Item data at the beginning of loadListLevel3Images: ', item);
     let cityImgUrl = item.cityImagesUrl;
-    console.log(cityImgUrl);
+    console.log('From loadListLevel3Images :', cityImgUrl);
 
     let cityName = item.cityName;
-    console.log(cityName);
+    console.log('From loadListLevel3Images :', cityName);
 
     return fetch(cityImgUrl)
       .then(function(response) {
@@ -196,21 +193,42 @@ const cityRepository = (function() {
   };
 })(); // End of IIFE
 
+// Another try of AJAX
+cityRepository.loadListLevel1().then(async function() {
+  await cityRepository
+    .getAll()
+    .forEach(item => cityRepository.loadListLevel2(item));
+  console.log(
+    'Test from the await after loadListLevel2: ',
+    cityRepository.getAll()
+  );
+  await cityRepository
+    .getAll()
+    .forEach(item => cityRepository.loadListLevel3Images(item));
+  // await cityRepository
+  //   .getAll()
+  //   .forEach(item => cityRepository.loadListLevel3ScoresSummary(item));
+  await cityRepository
+    .getAll()
+    .forEach(item => cityRepository.addListItem(item));
+  cityRepository.hideLoadingMessage();
+});
+
 // // We load the initial list of data (ie. the level 1)
 // loadListLevel1();
 
 // We load the initial list of data (ie. the level 1)
 // Then for each city item of the list we load the Level 2 of data
-cityRepository.loadListLevel1().then(function() {
-  cityRepository.getAll().forEach(item => {
-    // loadListLevel2(item);
-    // console.log(item);
-    cityRepository.loadListLevel2(item);
-  });
-
-  return cityRepository.getAll();
-});
-// .then(function(listOfCities) {
+// cityRepository.loadListLevel1().then(function() {
+//   cityRepository.getAll().forEach(item => {
+//     // loadListLevel2(item);
+//     // console.log(item);
+//     cityRepository.loadListLevel2(item);
+//   });
+//
+//   return cityRepository.getAll();
+// });
+// // .then(function(listOfCities) {
 //   console.log("List of cities", listOfCities);
 //   listOfCities.forEach(item => {
 //     // console.log(item);
@@ -218,30 +236,30 @@ cityRepository.loadListLevel1().then(function() {
 //   });
 // });
 
-setTimeout(function() {
-  // We create a timer to give time to fetch all data
-  cityRepository.getAll().forEach((item, i) => {
-    // console.log(item);
-    cityRepository.loadListLevel3Images(item);
-  });
-}, 2500);
+// setTimeout(function() {
+//   // We create a timer to give time to fetch all data
+//   cityRepository.getAll().forEach((item, i) => {
+//     // console.log(item);
+//     cityRepository.loadListLevel3Images(item);
+//   });
+// }, 2500);
 
-setTimeout(function() {
-  // We create a timer to give time to fetch all data
-  cityRepository.getAll().forEach((item, i) => {
-    // console.log(item);
-    cityRepository.loadListLevel3ScoresSummary(item);
-  });
-}, 4000);
+// setTimeout(function() {
+//   // We create a timer to give time to fetch all data
+//   cityRepository.getAll().forEach((item, i) => {
+//     // console.log(item);
+//     cityRepository.loadListLevel3ScoresSummary(item);
+//   });
+// }, 4000);
 
-setTimeout(function() {
-  // We create a timer to give time to fetch all data
-  cityRepository.getAll().forEach((item, i) => {
-    // console.log(item);
-    cityRepository.hideLoadingMessage();
-    cityRepository.addListItem(item);
-  });
-}, 4500);
+// setTimeout(function() {
+//   // We create a timer to give time to fetch all data
+//   cityRepository.getAll().forEach((item, i) => {
+//     // console.log(item);
+//     cityRepository.hideLoadingMessage();
+//     cityRepository.addListItem(item);
+//   });
+// }, 4500);
 
 // Search functionality
 $(document).ready(function() {
